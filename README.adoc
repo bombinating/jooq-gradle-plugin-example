@@ -1,0 +1,48 @@
+= jOOQ Gradle Plugin Example
+
+== Overview
+
+This is an example project using the https://github.com/bombinating/jooq-gradle-plugin[jOOQ Gradle plugin] for the https://docs.gradle.org/current/userguide/kotlin_dsl.html[Kotlin Gradle DSL]. The https://flywaydb.org/documentation/gradle/[Flyway Gradle plugin] is used to create the https://www.h2database.com/html/main.html[H2] databases that https://www.jooq.org[jOOQ] introspects and generates code for.
+
+== Configuration
+
+The projects uses https://docs.gradle.org/5.6/release-notes.html[Gradle 5.6.x]. This means that the `settings.gradle.kts` file may contain a https://docs.gradle.org/current/userguide/plugins.html#sec:plugin_management[`pluginManagement`] section and the plugin versions may come from the environment (in this case, the `gradle.properties` file).
+
+* The versions of libraries and plugins are defined in the https://docs.gradle.org/current/userguide/build_environment.html#sec:gradle_configuration_properties[`gradle.properties`] file.
+* The plugins, with their versions, are defined in the https://docs.gradle.org/current/dsl/org.gradle.api.initialization.Settings.html[`settings.gradle.kts`] file.
+* The version strings are read in using the https://docs.gradle.org/current/userguide/kotlin_dsl.html#kotdsl:properties[`by settings`] construct.
+* The plugins are applied in the `build.gradle.kts` file _without version numbers_ (since the versions were specified in `settings.gradle.kts`).
+* The library version strings and database properties are read from the environment using the `by project` construct.
+* The Flyway plugin is configured, using the plugin extension (which defines a `flywayMigrate` task), with the database information and runs the scripts in the (default) `src/main/resources/db/migration` directory.
+* The database is defined to exist in the `build` directory so when the project is cleaned the database will be deleted.
+* The jOOQ code generation plugin is configured, using the plugin `jooq` extension (which creates a `jooq` task), to generate code into the `$projectDir/generated/src/main/java` directory from the database created by Flyway.
+* The Flyway migrate task is defined to be a _dependency_ for the jOOQ code generation task.
+* A Flyway migration _task_ (`flywayMigrate2`) is defined that creates a second database, reading the SQL scripts from the `$projectDir/src/main/resources/db2/migration` directory.
+* A jOOQ _task_ (`jooq2`) is defined that generates Java code from the database created by the `flywayMigrate2` task. Note that the task uses the same version of the jOOQ code generation library as defined in the `jooq` extension. The `jooq2` task is specified to depend on the `flywayMigrate2` task.
+* The jOOQ code generation tasks are defined to be precondition for the Java compilation task.
+
+== Execution
+
+To execute the Flyway and jOOQ tasks, followed by Java compilation (first deleting any existing database), use:
+
+[source,bash]
+----
+$ ./gradlew clean build
+----
+
+The tasks can also be invoked separately:
+
+[source,bash]
+----
+$ ./gradlew flywayMigrate
+$ ./gradlew jooq
+$ ./gradlew build
+----
+
+To remove any generated code and delete the existing database, use:
+
+[source,bash]
+----
+$ ./gradlew clean cleanGenerated
+----
+
