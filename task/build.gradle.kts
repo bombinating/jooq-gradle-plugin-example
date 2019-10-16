@@ -22,11 +22,11 @@ val genDir2 = "$projectDir/generated2/src/main/java"
 val h2Version: String by project
 val jooqVersion: String by project
 
-val dbUrl: String by project
+val dbUrl: String = "jdbc:h2:$buildDir/db/test_db;AUTO_SERVER=true"
 val dbUsername: String by project
 val dbPassword: String by project
 
-val dbUrl2: String by project
+val dbUrl2: String = "jdbc:h2:$buildDir/db/test_db2;AUTO_SERVER=true"
 val dbUsername2: String by project
 val dbPassword2: String by project
 
@@ -102,10 +102,8 @@ val jooq2 = tasks.register<JooqTask>("jooq2") {
     dependsOn(flywayMigrate2)
 }
 
-tasks.register("cleanGenerated") {
-    doLast {
-        delete(genDir, genDir2)
-    }
+tasks.register<Delete>("cleanGenerated") {
+    delete(genDir, genDir2)
 }
 
 tasks.getByName("jooq").dependsOn(tasks.getByName("flywayMigrate"))

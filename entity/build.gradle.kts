@@ -13,18 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-val jooqPluginVersion: String by settings
-val flywayPluginVersion: String by settings
 
-pluginManagement {
-    plugins {
-        id("dev.bombinating.jooq-codegen") version jooqPluginVersion
-        id("org.flywaydb.flyway") version flywayPluginVersion
-    }
-    repositories {
-        mavenLocal()
-        gradlePluginPortal()
-    }
+plugins {
+    java
 }
 
-include("simple", "entity", "jpa", "task", "taskOnly")
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile(group = "org.hibernate.javax.persistence", name = "hibernate-jpa-2.1-api", version = "1.0.0.Final")
+}
