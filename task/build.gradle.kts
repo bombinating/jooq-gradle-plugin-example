@@ -57,7 +57,7 @@ flyway {
     password = dbPassword
 }
 
-val flywayMigrate2 = tasks.register<FlywayMigrateTask>("flywayMigrate2") {
+val flywayMigrate2 = task<FlywayMigrateTask>("flyway2") {
     url = dbUrl2
     user = dbUsername2
     password = dbPassword2
@@ -83,7 +83,7 @@ jooq {
     }
 }
 
-val jooq2 = tasks.register<JooqTask>("jooq2") {
+val jooq2 = task<JooqTask>("jooq2") {
     jdbc {
         url = dbUrl2
         username = dbUsername2
@@ -102,7 +102,7 @@ val jooq2 = tasks.register<JooqTask>("jooq2") {
     dependsOn(flywayMigrate2)
 }
 
-tasks.register<Delete>("cleanGenerated") {
+task<Delete>("cleanGenerated") {
     delete(genDir, genDir2)
 }
 

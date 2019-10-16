@@ -55,7 +55,7 @@ jooq {
     version = jooqVersion
 }
 
-val jooqGen = tasks.register<JooqTask>("jooqGen") {
+val jooqGen = task<JooqTask>("jooqGen") {
     jdbc {
         url = dbUrl
         username = dbUsername
@@ -74,7 +74,7 @@ val jooqGen = tasks.register<JooqTask>("jooqGen") {
     dependsOn(tasks.getByName("flywayMigrate"))
 }
 
-tasks.register<Delete>("cleanGenerated") {
+task<Delete>("cleanGenerated") {
     delete(genDir)
 }
 

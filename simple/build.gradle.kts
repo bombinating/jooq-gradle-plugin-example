@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import dev.bombinating.gradle.jooq.database
-import dev.bombinating.gradle.jooq.generator
-import dev.bombinating.gradle.jooq.jdbc
-import dev.bombinating.gradle.jooq.target
+import dev.bombinating.gradle.jooq.*
 
 val genDir = "$projectDir/generated/src/main/java"
 
@@ -73,7 +70,7 @@ jooq {
     }
 }
 
-tasks.register<Delete>("cleanGenerated") {
+task<Delete>("cleanGenerated") {
     delete(genDir)
 }
 

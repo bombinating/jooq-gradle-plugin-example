@@ -55,7 +55,7 @@ jooq {
     }
 }
 
-tasks.register<Delete>("cleanGenerated") {
+task<Delete>("cleanGenerated") {
     delete(genDir)
 }
 

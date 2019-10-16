@@ -32,7 +32,7 @@ $ ./gradlew -p simple clean cleanGeneratd build
 
 This project demonstrates adding an additional jOOQ code generation task. As in the simple example, the `jooq` extension block defines one `jooq` code generation configuration.
 
-In addition, the `jooq2` task is registered to invoke the jOOQ code generation using the configuration contained within it.
+In addition, the `jooq2` task is created to invoke the jOOQ code generation using the configuration contained within it.
 
 The `jooq2` task is defined to depend on the `flywayMigrate2` task and the `javaCompile` task is defined to depend on both the `jooq` and `jooq2` tasks.
 
