@@ -13,20 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-val flywayPluginVersion: String by settings
-val jooqPluginVersion: String by settings
-val releasePluginVersion: String by settings
 
-pluginManagement {
-    plugins {
-        id("dev.bombinating.jooq-codegen") version jooqPluginVersion
-        id("org.flywaydb.flyway") version flywayPluginVersion
-        id("net.researchgate.release") version releasePluginVersion
-    }
-    repositories {
-        mavenLocal()
-        gradlePluginPortal()
-    }
+plugins {
+    java
+    id("net.researchgate.release")
 }
-
-include("simple", "entity", "jpa", "task", "taskOnly")
