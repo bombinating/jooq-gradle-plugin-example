@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 import dev.bombinating.gradle.jooq.*
+import org.jooq.meta.jaxb.Logging
 
 val genDir = "$projectDir/generated/src/main/java"
 
@@ -68,6 +69,7 @@ jooq {
             packageName = "dev.bombinating.gradle.jooq.example.simple"
         }
     }
+    logging = Logging.WARN
 }
 
 task<Delete>("cleanGenerated") {
