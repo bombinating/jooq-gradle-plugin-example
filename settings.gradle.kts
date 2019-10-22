@@ -29,4 +29,4 @@ pluginManagement {
     }
 }
 
-include("simple", "entity", "jpa", "task", "taskOnly")
+include("simple", "entity", "jpa", "task", "taskOnly", "groovy")

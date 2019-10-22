@@ -1,0 +1,76 @@
+/*
+ * Copyright 2019 Andrew Geery
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import dev.bombinating.gradle.jooq.*
+import org.jooq.meta.jaxb.Logging
+
+plugins {
+    id 'java'
+    id 'dev.bombinating.jooq-codegen'
+    id 'org.flywaydb.flyway'
+}
+
+def genDir = "$projectDir/generated/src/main/java"
+def dbUrl = "jdbc:h2:$buildDir/db/test_db;AUTO_SERVER=true"
+
+sourceSets["main"].java {
+    srcDirs(genDir)
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.jooq:jooq:$jooqVersion"
+    runtime "com.h2database:h2:$h2Version"
+    jooqRuntime "com.h2database:h2:$h2Version"
+}
+
+flyway {
+    url = dbUrl
+    user = dbUsername
+    password = dbPassword
+}
+
+use(ConfigExtKt) {
+    jooq {
+        version = jooqVersion
+        jdbc {
+            it.url = dbUrl
+            it.username = dbUsername
+            it.password = dbPassword
+        }
+        generator {
+            it.database {
+                it.inputSchema = "PUBLIC"
+                it.excludes = "FlywaySchemaHistory"
+            }
+            it.target {
+                it.directory = genDir
+                it.packageName = "dev.bombinating.gradle.jooq.example.simple"
+            }
+        }
+        logging = Logging.WARN
+    }
+}
+
+task cleanGenerated(type: Delete) {
+    delete(genDir)
+}
+
+tasks.getByName("jooq").dependsOn(tasks.getByName("flywayMigrate"))
+tasks.getByName("compileJava").dependsOn(tasks.getByName("jooq"))
