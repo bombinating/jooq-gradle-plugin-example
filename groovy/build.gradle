@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import dev.bombinating.gradle.jooq.*
 import org.jooq.meta.jaxb.Logging
 
@@ -46,8 +47,8 @@ flyway {
     password = dbPassword
 }
 
-use(ConfigExtKt) {
-    jooq {
+jooq {
+    use(ConfigExtKt) {
         version = jooqVersion
         jdbc {
             it.url = dbUrl
