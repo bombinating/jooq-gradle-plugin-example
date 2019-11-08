@@ -53,7 +53,7 @@ To run this example, execute the following from the top-level project directory:
 
 [source,bash]
 ----
-$ ./gradlew -p taskOnly clean cleanGeneratd build
+$ ./gradlew -p task-only clean cleanGeneratd build
 ----
 
 === JPA (and Entity)
@@ -69,6 +69,15 @@ To run this example, execute the following from the top-level project directory:
 [source,bash]
 ----
 $ ./gradlew -p jpa clean cleanGeneratd build
+----
+
+=== Spring Boot (and Spring Dependency Management Plugin)
+
+This project demonstrates jOOQ code generation in relation to Spring Boot. Spring Boot uses the Spring Dependency Management Plugin to set dependency versions, including the jOOQ version. This project shows that specifying the jOOQ version in the jOOQ plugin overrides the (default) Spring Boot version of the jOOQ library.
+
+[source,bash]
+----
+$ ./gradlew -p spring-boot clean cleanGeneratd build
 ----
 
 == Configuration

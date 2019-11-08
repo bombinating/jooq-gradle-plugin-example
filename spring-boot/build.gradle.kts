@@ -53,11 +53,10 @@ flyway {
     url = dbUrl
     user = dbUsername
     password = dbPassword
-    this.configFiles
 }
 
 jooq {
-    version = "3.11.11" // Note: this overrides and sets the jooq.version value in Spring Boot
+    version = "3.11.12" // Note: this overrides and sets the env["jooq.version"] value in Spring Boot
     jdbc {
         url = dbUrl
         username = dbUsername
