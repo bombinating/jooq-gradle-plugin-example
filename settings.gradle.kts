@@ -16,12 +16,14 @@
 val flywayPluginVersion: String by settings
 val jooqPluginVersion: String by settings
 val releasePluginVersion: String by settings
+val springBootPluginVersion: String by settings
 
 pluginManagement {
     plugins {
         id("dev.bombinating.jooq-codegen") version jooqPluginVersion
         id("org.flywaydb.flyway") version flywayPluginVersion
         id("net.researchgate.release") version releasePluginVersion
+        id("org.springframework.boot") version springBootPluginVersion
     }
     repositories {
         mavenLocal()
@@ -29,4 +31,4 @@ pluginManagement {
     }
 }
 
-include("simple", "entity", "jpa", "task", "taskOnly", "groovy")
+include("simple", "entity", "jpa", "task", "task-only", "groovy", "spring-boot")
