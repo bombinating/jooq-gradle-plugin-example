@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-val flywayPluginVersion: String by settings
-val jooqPluginVersion: String by settings
-val releasePluginVersion: String by settings
-val springBootPluginVersion: String by settings
 
 pluginManagement {
+    val flywayPluginVersion: String by settings
+    val jooqPluginVersion: String by settings
+    val releasePluginVersion: String by settings
+    val springBootPluginVersion: String by settings
     plugins {
         id("dev.bombinating.jooq-codegen") version jooqPluginVersion
         id("org.flywaydb.flyway") version flywayPluginVersion
