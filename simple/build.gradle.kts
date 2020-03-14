@@ -13,8 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import dev.bombinating.gradle.jooq.*
+import dev.bombinating.gradle.jooq.database
+import dev.bombinating.gradle.jooq.generate
+import dev.bombinating.gradle.jooq.generator
+import dev.bombinating.gradle.jooq.jdbc
+import dev.bombinating.gradle.jooq.matchers
+import dev.bombinating.gradle.jooq.pojoClass
+import dev.bombinating.gradle.jooq.strategy
+import dev.bombinating.gradle.jooq.tables
+import dev.bombinating.gradle.jooq.target
+import org.jooq.meta.jaxb.GeneratedAnnotationType
 import org.jooq.meta.jaxb.Logging
+import org.jooq.meta.jaxb.GeneratedAnnotationType.JAVAX_ANNOTATION_GENERATED
 
 val genDir = "$projectDir/generated/src/main/java"
 
@@ -67,6 +77,9 @@ jooq {
         target {
             directory = genDir
             packageName = "dev.bombinating.gradle.jooq.example.simple"
+        }
+        generate {
+            isGeneratedAnnotation = true
         }
     }
     logging = Logging.WARN

@@ -64,6 +64,9 @@ jooq {
                 it.directory = genDir
                 it.packageName = "dev.bombinating.gradle.jooq.example.simple"
             }
+            it.generate {
+                it.generatedAnnotation = true
+            }
         }
         logging = Logging.WARN
     }
